@@ -405,7 +405,7 @@
 		"pkg": "^5.8.0",
 		"ts-loader": "^9.3.0",
 		"typescript": "^4.8.4",
-		"webpack": "^5.76.1",
+		"webpack": "^5.101.3",
 		"webpack-cli": "^4.7.0"
 	},
 	"bin": "server/dist/serverMain.js",
