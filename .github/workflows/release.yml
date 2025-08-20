@@ -29,7 +29,7 @@ jobs:
     needs: [create-release]
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Install NPM dependencies
       run: npm install
     - name: Build project assets
@@ -38,7 +38,7 @@ jobs:
     - name: Compress Linux binary
       run: mkdir perlnavigator-linux-x86_64 && cp -a dist/perlnavigator-linux perlnavigator-linux-x86_64/perlnavigator && zip -r perlnavigator-linux-x86_64.zip perlnavigator-linux-x86_64
     - name: Upload Linux binary
-      uses: actions/upload-release-asset@v1.0.1
+      uses: actions/upload-release-asset@v1.0.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -50,7 +50,7 @@ jobs:
     - name: Compress MacOS binary
       run: mkdir perlnavigator-macos-x86_64 && cp -a dist/perlnavigator-macos perlnavigator-macos-x86_64/perlnavigator && zip -r perlnavigator-macos-x86_64.zip perlnavigator-macos-x86_64
     - name: Upload MacOS binary
-      uses: actions/upload-release-asset@v1.0.1
+      uses: actions/upload-release-asset@v1.0.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -62,7 +62,7 @@ jobs:
     - name: Compress Windows binary
       run: mkdir perlnavigator-win-x86_64 && cp -a dist/perlnavigator-win.exe perlnavigator-win-x86_64/perlnavigator.exe && zip -r perlnavigator-win-x86_64.zip perlnavigator-win-x86_64
     - name: Upload Windows binary
-      uses: actions/upload-release-asset@v1.0.1
+      uses: actions/upload-release-asset@v1.0.2
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -75,7 +75,7 @@ jobs:
     needs: [build-release]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - uses: actions/setup-node@v4
       with:
         node-version: '20.x'
