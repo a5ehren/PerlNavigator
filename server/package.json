@@ -5,19 +5,19 @@
 	"author": "bscan",
 	"license": "MIT",
 	"engines": {
-		"node": ">=16.0.0"
+		"node": ">=20.0.0"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/bscan"
 	},
 	"dependencies": {
-		"vscode-languageserver": "^7.0.0",
-		"vscode-languageserver-textdocument": "^1.0.1",
-		"vscode-uri": "^1.0.1",
-		"lru-cache": "^6.0.0",
-		"nanoid": "^3.1.31",
-		"vscode-textmate": "^9.0.0",
+		"vscode-languageserver": "9.0.1",
+		"vscode-languageserver-textdocument": "^1.0.12",
+		"vscode-uri": "^3.1.0",
+		"lru-cache": "^11.1.0",
+		"nanoid": "^3.3.11",
+		"vscode-textmate": "^9.2.0",
 		"vscode-oniguruma": "^2.0.1"
 	},
 	"scripts": {},
@@ -26,8 +26,8 @@
 		"perlnavigator": "./bin/perlnavigator"
 	},
 	"devDependencies": {
-		"@types/node": "^18.19.41",
-		"typescript": "^4.8.4"
+		"@types/node": "20.19.11",
+		"typescript": "~5.4.5"
 	},
 	"keywords": [
 		"perl",

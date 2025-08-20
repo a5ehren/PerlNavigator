@@ -1,6 +1,6 @@
 import fs = require("fs");
 import { PerlDocument, PerlElem, PerlSymbolKind } from "./types";
-import Uri from "vscode-uri";
+import { URI } from "vscode-uri";
 import { isFile } from "./utils";
 
 export async function getPod(elem: PerlElem, perlDoc: PerlDocument, modMap: Map<string, string>): Promise<string | undefined> {
@@ -96,7 +96,7 @@ export async function getPod(elem: PerlElem, perlDoc: PerlDocument, modMap: Map<
 
 
 async function resolvePathForDoc(elem: PerlElem, perlDoc: PerlDocument, modMap: Map<string, string>): Promise<string | undefined> {
-    let absolutePath = Uri.parse(elem.uri).fsPath;
+    let absolutePath = URI.parse(elem.uri).fsPath;
 
     const foundPath = await fsPathOrAlt(absolutePath);
     if(foundPath){
@@ -111,7 +111,7 @@ async function resolvePathForDoc(elem: PerlElem, perlDoc: PerlDocument, modMap: 
             // Looking up a module by the package name is only convention, but helps for things like POSIX
             const modUri = modMap.get(elem.package);
             if(modUri){
-                let modPath = await fsPathOrAlt(Uri.parse(modUri).fsPath);
+                let modPath = await fsPathOrAlt(URI.parse(modUri).fsPath);
                 if(modPath){
                     return modPath;
                 }
@@ -121,7 +121,7 @@ async function resolvePathForDoc(elem: PerlElem, perlDoc: PerlDocument, modMap: 
 
 
         for (let potentialElem of elemResolved) {
-            const potentialPath = Uri.parse(potentialElem.uri).fsPath;
+            const potentialPath = URI.parse(potentialElem.uri).fsPath;
             const foundPackPath = await fsPathOrAlt(potentialPath);
             if (foundPackPath) {
                 return foundPackPath;
