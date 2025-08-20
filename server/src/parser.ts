@@ -1,6 +1,6 @@
 import { PerlDocument, PerlElem, PerlSymbolKind, ParseType, TagKind, ElemSource } from "./types";
 import { TextDocument } from "vscode-languageserver-textdocument";
-import Uri from "vscode-uri";
+import { URI } from "vscode-uri";
 import fs = require("fs");
 import path = require("path");
 import vsctm = require("vscode-textmate");
@@ -8,7 +8,7 @@ import oniguruma = require("vscode-oniguruma");
 
 function init_doc(textDocument: TextDocument): PerlDocument {
     // We probably dont need this
-    const filePath = Uri.parse(textDocument.uri).fsPath;
+    const filePath = URI.parse(textDocument.uri).fsPath;
 
     let perlDoc: PerlDocument = {
         elems: new Map(),
@@ -37,7 +37,7 @@ type ParseFunc = (state: ParserState) => boolean;
 
 export async function parseFromUri(uri: string, parseType: ParseType): Promise<PerlDocument | undefined> {
     // File may not exists. Return nothing if it doesn't
-    const absolutePath = Uri.parse(uri).fsPath;
+    const absolutePath = URI.parse(uri).fsPath;
     try {
         var content = await fs.promises.readFile(absolutePath, "utf8");
     } catch {

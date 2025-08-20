@@ -1,7 +1,7 @@
 import { DefinitionParams, Location, WorkspaceFolder } from "vscode-languageserver/node";
 import { TextDocument } from "vscode-languageserver-textdocument";
 import { PerlDocument, PerlElem, NavigatorSettings, ElemSource, ParseType } from "./types";
-import Uri from "vscode-uri";
+import { URI } from "vscode-uri";
 import { realpathSync, existsSync, realpath, promises } from "fs";
 import { getIncPaths, async_execFile, getSymbol, lookupSymbol, nLog, isFile } from "./utils";
 import { dirname, join } from "path";
@@ -29,11 +29,11 @@ export async function getDefinition(params: DefinitionParams, perlDoc: PerlDocum
         let uri: string;
         if (perlDoc.uri !== elemResolved.uri) {
             // If sending to a different file, let's make sure it exists and clean up the path
-            const file = Uri.parse(elemResolved.uri).fsPath;
+            const file = URI.parse(elemResolved.uri).fsPath;
 
             if (!(await isFile(file))) continue; // Make sure the file exists and hasn't been deleted.
 
-            uri = Uri.file(realpathSync(file)).toString(); // Resolve symlinks
+            uri = URI.file(realpathSync(file)).toString(); // Resolve symlinks
         } else {
             // Sending to current file (including untitled files)
             uri = perlDoc.uri;
@@ -116,7 +116,7 @@ function badFile(uri: string): boolean {
     if (!uri) {
         return true;
     }
-    const fsPath = Uri.parse(uri).fsPath;
+    const fsPath = URI.parse(uri).fsPath;
 
     if (!fsPath || fsPath.length <= 1) {
         // Single forward slashes seem to sneak in here.
@@ -160,7 +160,7 @@ export async function getAvailableMods(workspaceFolders: WorkspaceFolder[] | nul
                 // Skip if error
             } else {
                 if (!path) return; // Could file be empty, but no error?
-                let uri = Uri.file(path).toString(); // Resolve symlinks
+                let uri = URI.file(path).toString(); // Resolve symlinks
                 mods.set(items[2], uri);
             }
         });

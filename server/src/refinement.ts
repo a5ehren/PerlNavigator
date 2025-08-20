@@ -4,7 +4,7 @@ import { ElemSource, ParseType, PerlDocument, PerlElem, PerlSymbolKind } from ".
 import { lookupSymbol } from "./utils";
 import { parseFromUri } from "./parser";
 import fs = require("fs");
-import Uri from "vscode-uri";
+import { URI } from "vscode-uri";
 
 export async function refineElementIfSub(elem: PerlElem, params: TextDocumentPositionParams, perlDoc: PerlDocument): Promise<PerlElem | undefined> {
     if (![PerlSymbolKind.LocalSub, PerlSymbolKind.ImportedSub, PerlSymbolKind.Inherited, PerlSymbolKind.LocalMethod, PerlSymbolKind.Method].includes(elem.type)) {
@@ -66,7 +66,7 @@ async function getUriFromElement(elem: PerlElem, perlDoc: PerlDocument): Promise
 }
 
 async function isFile(uri: string): Promise<boolean> {
-    const file = Uri.parse(uri).fsPath;
+    const file = URI.parse(uri).fsPath;
     if (!file || file.length < 1) {
         return false;
     }

@@ -9,7 +9,7 @@ import { LanguageClientOptions } from 'vscode-languageclient';
 import { LanguageClient } from 'vscode-languageclient/browser';
 
 // this method is called when vs code is activated
-export function activate(context: ExtensionContext) {
+export async function activate(context: ExtensionContext) {
 
 	console.log('Perl Navigator web client activated!');
 
@@ -30,12 +30,8 @@ export function activate(context: ExtensionContext) {
 
 	const client = createWorkerLanguageClient(context, clientOptions);
 
-	const disposable = client.start();
-	context.subscriptions.push(disposable);
-
-	client.onReady().then(() => {
-		console.log('Perl Navigator web client is now ready!');
-	});
+	await client.start();
+	context.subscriptions.push(client);
 }
 
 function createWorkerLanguageClient(context: ExtensionContext, clientOptions: LanguageClientOptions) {

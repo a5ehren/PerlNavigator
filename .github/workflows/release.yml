@@ -29,7 +29,7 @@ jobs:
     needs: [create-release]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Install NPM dependencies
       run: npm install
     - name: Build project assets
@@ -75,10 +75,10 @@ jobs:
     needs: [build-release]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
-        node-version: '18.x'
+        node-version: '20.x'
         registry-url: 'https://registry.npmjs.org'
     - run: cd server && npm ci && npx tsc
     - run: npm publish server/

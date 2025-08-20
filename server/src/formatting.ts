@@ -3,7 +3,7 @@ import { TextDocument } from "vscode-languageserver-textdocument";
 import { PerlDocument, PerlElem, NavigatorSettings } from "./types";
 import { async_execFile, getPerlimportsProfile, nLog } from "./utils";
 import { dirname, join } from "path";
-import Uri from "vscode-uri";
+import { URI } from "vscode-uri";
 import { execFileSync } from "child_process";
 import { getPerlAssetsPath } from "./assets";
 import { startProgress, endProgress } from "./progress";
@@ -77,7 +77,7 @@ async function perlimports(doc: TextDocument, code: string, settings: NavigatorS
     if (!settings.perlimportsTidyEnabled) return;
     const importsPath = join(await getPerlAssetsPath(), "perlimportsWrapper.pl");
     let cliParams: string[] = [importsPath].concat(getPerlimportsProfile(settings));
-    cliParams = cliParams.concat(["--filename", Uri.parse(doc.uri).fsPath]);
+    cliParams = cliParams.concat(["--filename", URI.parse(doc.uri).fsPath]);
     nLog("Now starting perlimports with: " + cliParams.join(" "), settings);
 
     try {
@@ -135,7 +135,7 @@ function getTidyProfile(workspaceFolders: WorkspaceFolder[] | null, settings: Na
         if (profile.indexOf("$workspaceFolder") != -1) {
             if (workspaceFolders) {
                 // TODO: Fix this. Only uses the first workspace folder
-                const workspaceUri = Uri.parse(workspaceFolders[0].uri).fsPath;
+                const workspaceUri = URI.parse(workspaceFolders[0].uri).fsPath;
                 profileCmd.push("--profile");
                 profileCmd.push(profile.replaceAll("$workspaceFolder", workspaceUri));
             } else {
